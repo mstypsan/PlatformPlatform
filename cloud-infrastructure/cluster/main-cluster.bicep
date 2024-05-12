@@ -272,6 +272,7 @@ module accountManagementApi '../modules/container-app.bicep' = {
     userAssignedIdentityName: accountManagementIdentityName
     ingress: true
     environmentVariables: accountManagementEnvironmentVariables
+    hasProbes: true
   }
   dependsOn: [accountManagementDatabase, accountManagementIdentity, communicationService, accountManagementWorkers]
 }

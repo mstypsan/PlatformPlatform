@@ -10,27 +10,13 @@ resource userAssignedIdentity 'Microsoft.ManagedIdentity/userAssignedIdentities@
   tags: tags
 }
 
+
 var containerRegistryResourceGroupName = 'shared'
 module containerRegistryPermission './role-assignments-container-registry-acr-pull.bicep' = {
   name: 'container-registry-permission'
   scope: resourceGroup(subscription().subscriptionId, containerRegistryResourceGroupName)
   params: {
     containerRegistryName: containerRegistryName
-    principalId: userAssignedIdentity.properties.principalId
-  }
-}
-
-
-resource keyVault 'Microsoft.KeyVault/vaults@2021-10-01' existing = {
-  name: keyVaultName
-}
-
-var keyVaultSecretsUserRoleDefinitionId = '4633458b-17de-408a-b874-0445c86b69e6' // Key Vault Secrets User role
-resource roleAssignment 'Microsoft.Authorization/roleAssignments@2022-04-01' = {
-  name: guid(keyVaultName, name, keyVaultSecretsUserRoleDefinitionId)
-  scope: keyVault
-  properties: {
-    roleDefinitionId: subscriptionResourceId('Microsoft.Authorization/roleDefinitions', keyVaultSecretsUserRoleDefinitionId)
     principalId: userAssignedIdentity.properties.principalId
   }
 }

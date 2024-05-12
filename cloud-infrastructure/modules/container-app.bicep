@@ -97,7 +97,7 @@ resource containerApp 'Microsoft.App/containerApps@2023-05-02-preview' = {
           probes: hasProbes ? [{
             type: 'liveness'
             failureThreshold: 3
-            periodSeconds: 10
+            periodSeconds: 15
             successThreshold: 1
             tcpSocket: {
               port: 80
