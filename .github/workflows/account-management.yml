@@ -205,7 +205,7 @@ jobs:
 
   api-deploy:
     name: Deploy API
-    if: github.ref == 'refs/heads/main'
+    if: true
     needs: [build-and-test, api-publish]
     uses: ./.github/workflows/_deploy-container.yml
     secrets: inherit
@@ -229,7 +229,7 @@ jobs:
 
   workers-deploy:
     name: Deploy Workers
-    if: github.ref == 'refs/heads/main'
+    if: true
     needs: [build-and-test, workers-publish]
     uses: ./.github/workflows/_deploy-container.yml
     secrets: inherit
