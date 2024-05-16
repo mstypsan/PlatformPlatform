@@ -18,7 +18,6 @@ param isDomainConfigured bool = false
 param external bool = false
 param environmentVariables object[] = []
 param uniqueSuffix string = substring(newGuid(), 0, 4)
-param hasProbes bool = false
 
 resource userAssignedIdentity 'Microsoft.ManagedIdentity/userAssignedIdentities@2023-01-31' existing = {
   scope: resourceGroup(resourceGroupName)
@@ -94,7 +93,7 @@ resource containerApp 'Microsoft.App/containerApps@2023-05-02-preview' = {
             memory: memory
           }
           env: environmentVariables
-          probes: hasProbes ? [{
+          probes: [{
             type: 'liveness'
             httpGet: {
                 path: '/api/alive'
@@ -119,7 +118,7 @@ resource containerApp 'Microsoft.App/containerApps@2023-05-02-preview' = {
              periodSeconds: 6
              successThreshold: 1
              timeoutSeconds: 5
-           }] : []
+           }]
         }
       ]
       revisionSuffix: revisionSuffix
