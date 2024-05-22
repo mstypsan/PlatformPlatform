@@ -72,7 +72,7 @@ jobs:
 
   shared:
     name: Shared
-    if: github.ref == 'refs/heads/main'
+    if: true
     needs: plan
     runs-on: ubuntu-latest
     environment: "shared" ## Force a manual approval
@@ -101,7 +101,7 @@ jobs:
 
   staging:
     name: Staging
-    if: github.ref == 'refs/heads/main'
+    if: true
     needs: shared
     runs-on: ubuntu-latest
     environment: "staging" ## Force a manual approval
