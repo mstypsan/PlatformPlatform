@@ -72,10 +72,10 @@ jobs:
       - name: Plan Cluster Resources
         id: deploy_cluster
         run: bash ./cloud-infrastructure/cluster/deploy-cluster.sh ${{ inputs.unique_prefix }} ${{ inputs.azure_environment }} ${{ inputs.cluster_location }} ${{ inputs.cluster_location_acronym }} ${{ inputs.sql_admin_object_id }} ${{ inputs.domain_name }} --plan
-  
+
   deploy:
     name: "Deploying"
-    if: ${{ inputs.deployment_enabled == 'true' && github.ref == 'refs/heads/main' }}
+    if: true
     needs: plan
     environment: "${{ inputs.github_environment }}"
     runs-on: ubuntu-latest
