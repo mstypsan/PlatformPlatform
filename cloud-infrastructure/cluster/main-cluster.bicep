@@ -131,7 +131,6 @@ var publicUrl = isCustomDomainSet
   : 'https://${appGatewayContainerAppName}.${containerAppsEnvironment.outputs.defaultDomainName}'
 var cdnUrl = publicUrl
 
-
 // Account Management
 
 var accountManagementIdentityName = '${resourceGroupName}-account-management'
@@ -259,10 +258,10 @@ module accountManagementApi '../modules/container-app.bicep' = {
     userAssignedIdentityName: accountManagementIdentityName
     ingress: true
     environmentVariables: accountManagementEnvironmentVariables
+    hasProbes: true
   }
   dependsOn: [accountManagementDatabase, accountManagementIdentity, communicationService, accountManagementWorkers]
 }
-
 
 // Back Office
 
@@ -465,7 +464,7 @@ module appGatwayAccountManagementStorageBlobDataReaderRoleAssignment '../modules
     storageAccountName: accountManagementStorageAccountName
     userAssignedIdentityName: appGatewayIdentityName
   }
-  dependsOn: [ appGateway, accountManagementStorageAccount ]
+  dependsOn: [appGateway, accountManagementStorageAccount]
 }
 
 output accountManagementIdentityClientId string = accountManagementIdentity.outputs.clientId
